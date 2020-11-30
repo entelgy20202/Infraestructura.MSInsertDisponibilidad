@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infraestructura.BusinessEntities\Infraestructura.BusinessEntities.csproj" />
+    <ProjectReference Include="..\Infraestructura.DAL\Infraestructura.DAL.csproj" />
+    <ProjectReference Include="..\Infraestructura.MSInsertDisponibilidad.DTO\Infraestructura.MSInsertDisponibilidad.DTO.csproj" />
+  </ItemGroup>
+
+</Project>
