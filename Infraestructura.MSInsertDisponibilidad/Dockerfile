@@ -2,8 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://*:8080
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
@@ -19,4 +19,6 @@ RUN dotnet publish "Infraestructura.MSInsertDisponibilidad.csproj" -c Release -o
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN useradd --create-home appuser
+USER appuser
 ENTRYPOINT ["dotnet", "Infraestructura.MSInsertDisponibilidad.dll"]
