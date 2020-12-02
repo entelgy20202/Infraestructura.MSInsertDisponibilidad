@@ -31,29 +31,24 @@ namespace Infraestructura.DAL
                                    "[finfallo], [calindicador], [IdContrato]) " +
                                    "VALUES " +
                                    "(@Tipofallo, @Descfallo, @Respfallo, @Tiempofallo, @Iniciofallo, " +
-                                   "@Finfallo, @Calindicador, @IdContrato)";
+                                   "@Finfallo, @Calindicador, @IdContrato); " +
+                                   "SELECT SCOPE_IDENTITY();";
 
                 await using (var cmd = new SqlCommand(sql, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Tipofallo", disponibilidad.tipofallo);
-                    cmd.Parameters.AddWithValue("@Descfallo", disponibilidad.descfallo);
-                    cmd.Parameters.AddWithValue("@Respfallo", disponibilidad.respfallo);
-                    cmd.Parameters.AddWithValue("@Tiempofallo", disponibilidad.tiempofallo);
-                    cmd.Parameters.AddWithValue("@Iniciofallo", disponibilidad.iniciofallo);
-                    cmd.Parameters.AddWithValue("@Finfallo", disponibilidad.finfallo);
-                    cmd.Parameters.AddWithValue("@Calindicador", disponibilidad.calindicador);
-                    cmd.Parameters.AddWithValue("@IdContrato", disponibilidad.IdContrato);
+                    cmd.Parameters.AddWithValue("@Tipofallo", GetDbNullOrValue(disponibilidad.tipofallo));
+                    cmd.Parameters.AddWithValue("@Descfallo", GetDbNullOrValue(disponibilidad.descfallo));
+                    cmd.Parameters.AddWithValue("@Respfallo", GetDbNullOrValue(disponibilidad.respfallo));
+                    cmd.Parameters.AddWithValue("@Tiempofallo", GetDbNullOrValue(disponibilidad.tiempofallo));
+                    cmd.Parameters.AddWithValue("@Iniciofallo", GetDbNullOrValue(disponibilidad.iniciofallo));
+                    cmd.Parameters.AddWithValue("@Finfallo", GetDbNullOrValue(disponibilidad.finfallo));
+                    cmd.Parameters.AddWithValue("@Calindicador", GetDbNullOrValue(disponibilidad.calindicador));
+                    cmd.Parameters.AddWithValue("@IdContrato", GetDbNullOrValue(disponibilidad.IdContrato));
 
-                    var param = new SqlParameter("@Id", SqlDbType.Int, 4)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    cmd.Parameters.Add(param);
                     try
                     {
                         conn.Open();
-                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
-                        disponibilidad.Id = Convert.ToInt32(cmd.Parameters["@Id"].Value);
+                        disponibilidad.Id = Convert.ToInt32(await cmd.ExecuteScalarAsync().ConfigureAwait(false));
                     }
                     catch (SqlException sEx)
                     {
@@ -67,5 +62,10 @@ namespace Infraestructura.DAL
             }
             return disponibilidad.Id;
         }
+        private object GetDbNullOrValue(object? obj)
+        {
+            return obj ?? DBNull.Value;
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 using Infraestructura.DAL;
 using Infraestructura.DAL.Interfaces;
+using Infraestructura.MSInsertDisponibilidad.Converters;
 using Infraestructura.MSInsertDisponibilidad.Domain;
 using Infraestructura.MSInsertDisponibilidad.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +23,9 @@ namespace Infraestructura.MSInsertDisponibilidad
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter()));
             services.AddScoped<IServicioDisponibilidad, ServicioDisponibilidadImpl>();
             services.AddScoped<IInsertarDisponibilidad, InsertarDisponibilidadImpl>();
             services.AddControllers();
