@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Infraestructura.MSInsertDisponibilidad.Converters
 {
@@ -11,7 +8,7 @@ namespace Infraestructura.MSInsertDisponibilidad.Converters
     {
         public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var value = reader.GetString();
+            var value = reader.GetString() ?? string.Empty;
             return TimeSpan.Parse(value);
         }
 

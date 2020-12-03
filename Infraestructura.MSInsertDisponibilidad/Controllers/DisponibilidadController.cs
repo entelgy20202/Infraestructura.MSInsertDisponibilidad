@@ -31,7 +31,7 @@ namespace Infraestructura.MSInsertDisponibilidad.Controllers
         {
             var result = await _domain.ExecuteAsync(disponibilidad).ConfigureAwait(false);
 
-            return Ok(new DisponibilidadWrapper() { IdDisponibiliad = result });
+            return Ok(new DisponibilidadWrapper() { IdDisponibilidad = result });
         }
     }
 }

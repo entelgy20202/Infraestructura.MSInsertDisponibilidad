@@ -2,12 +2,12 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/Infraestructura.MSDisponibilidad
-/Infraestructura.BusinessEntities/bin/Debug/netcoreapp3.1
-/Infraestructura.BusinessEntities/obj
-/Infraestructura.DAL/bin/Debug/netcoreapp3.1
-/Infraestructura.DAL/obj
-/Infraestructura.MSInsertDisponibilidad.Domain/bin/Debug/netcoreapp3.1
-/Infraestructura.MSInsertDisponibilidad.Domain/obj
-/Infraestructura.MSInsertDisponibilidad.DTO/bin/Debug/netcoreapp3.1
-/Infraestructura.MSInsertDisponibilidad.DTO/obj
+/.vs/**
+*.dll
+*.cache
+*.pdb
+*.exe
+**/bin/**
+**/Debug/**
+**/Release/**
+**/obj/**
